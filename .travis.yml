@@ -49,6 +49,6 @@ before_script:
 
 script:
   - sudo hostname travis-ci.local
-  - cmake -G "Unix Makefiles" -C ci/cmake-preloads/config-linux-all.txt -D CMAKE_BUILD_TYPE=Debug -DWITH_LIBSYSTEMD=OFF -DWITH_WAYLAND=OFF .
+  - cmake -G "Unix Makefiles" -C ci/cmake-preloads/config-linux-all.txt -D CMAKE_BUILD_TYPE=Debug -DCMAKE_C_FLAGS="-fsanitize=thread -pthread" -DWITH_LIBSYSTEMD=OFF -DWITH_WAYLAND=OFF .
   - make
   - make test
