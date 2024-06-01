@@ -12,7 +12,7 @@ permissions:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'FreeRDP' }}
+    #if: ${{ github.repository_owner == 'FreeRDP' }}
     steps:
     - uses: actions/checkout@v4
     - name: Install apt dependencies
@@ -67,7 +67,7 @@ jobs:
          liburiparser-dev
     - name: Download Coverity build tool
       run: |
-        wget -c -N https://scan.coverity.com/download/linux64 --post-data "token=${{ secrets.COVERITY_SCAN_TOKEN }}&project=FreeRDP" -O coverity_tool.tar.gz
+        wget -c -N https://scan.coverity.com/download/linux64 --post-data "token=${{ secrets.COVERITY_SCAN_TOKEN }}&project=chipitsine/FreeRDP" -O coverity_tool.tar.gz
         mkdir coverity_tool
         tar xzf coverity_tool.tar.gz --strip 1 -C coverity_tool
     - name: Build with Coverity build tool
@@ -88,8 +88,8 @@ jobs:
       run: |
         tar czvf cov.tar.gz cov-int
         curl --form token=${{ secrets.COVERITY_SCAN_TOKEN }} \
-          --form email=team+coverity@freerdp.com \
+          --form email=chipitsine@gmail.com \
           --form file=@cov.tar.gz \
           --form version="Commit $GITHUB_SHA" \
           --form description="Build submitted via CI" \
-          https://scan.coverity.com/builds?project=FreeRDP
+          https://scan.coverity.com/builds?project=chipitsine/FreeRDP
